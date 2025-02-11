@@ -26,5 +26,7 @@ module YoutubeVideoSharing
     config.api_only = true
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
+    # Skip CSRF token verification for APIs
+    config.action_controller.allow_forgery_protection = false
   end
 end
