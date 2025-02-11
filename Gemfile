@@ -15,6 +15,7 @@ gem 'devise-jwt'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem 'rspec-rails', '~> 5.0'
 end
 
 group :development do
@@ -24,4 +25,7 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'database_cleaner-active_record'
 end
