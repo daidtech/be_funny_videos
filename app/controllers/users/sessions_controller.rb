@@ -24,7 +24,6 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
   def respond_with(current_user, _opts = {})
-    current_user.check_active_sessions
     render json: {
       token: current_token,
       message: 'Logged in successfully.'
