@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users, defaults: { format: :json }, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
   }
+
+  namespace :api do
+    namespace :v1 do
+      resources :videos, only: %i[index create destroy]
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
