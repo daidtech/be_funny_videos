@@ -1,27 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   respond_to :json
 
-  # POST /resource/sign_in
-  def create
-    self.resource = warden.authenticate!(auth_options)
-    sign_in(resource_name, resource)
-    render json: {
-      token: current_token,
-      user: UserSerializer.new(resource).as_json,
-      message: 'Logged in successfully.'
-    }, status: :ok
-  rescue StandardError => error
-    render json: {
-      error: error
-    }, status: :unauthorized
-  end
-
-  # DELETE /resource/sign_out
-  def destroy
-    sign_out(resource_name)
-    render json: { message: 'Logged out successfully.' }, status: :ok
-  end
-
   protected
   def respond_with(current_user, _opts = {})
     render json: {
@@ -31,16 +10,17 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
+    jwt_payload = current_token
+    jti = JWT.decode(
+      jwt_payload,
+      Rails.application.credentials.devise_jwt_secret_key || ENV['DEVISE_JWT_SECRET_KEY'],
+      true, algorithm: 'HS256'
+      )[0]['jti']
     if current_user
-      render json: {
-        status: 200,
-        message: 'Logged out successfully.'
-      }, status: :ok
+      JwtDenylist.create!(jti: jti, exp: Time.at(JWT.decode(jwt_payload, nil, false)[0]['exp']))
+      render json: { message: 'Logged out successfully.' }, status: :ok
     else
-      render json: {
-        status: 401,
-        message: "Couldn't find an active session."
-      }, status: :unauthorized
+      render json: { message: 'No active session.' }, status: :unauthorized
     end
   end
 
