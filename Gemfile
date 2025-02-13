@@ -12,6 +12,8 @@ gem "bootsnap", require: false
 gem 'rack-cors', require: 'rack/cors'
 gem 'devise'
 gem 'devise-jwt'
+gem "redis", "~> 5.3"
+gem "sidekiq", "~> 7.3"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
