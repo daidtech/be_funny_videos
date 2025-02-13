@@ -1,0 +1,11 @@
+:concurrency: 5
+:queues:
+  - default
+
+:development:
+  :concurrency: 5
+
+:test:
+  :concurrency: 1
+  :queues:
+    - [default, 1]

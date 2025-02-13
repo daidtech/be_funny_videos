@@ -28,5 +28,7 @@ module YoutubeVideoSharing
     config.middleware.use ActionDispatch::Session::CookieStore
     # Skip CSRF token verification for APIs
     config.action_controller.allow_forgery_protection = false
+    config.active_job.queue_adapter = :sidekiq
+
   end
 end
