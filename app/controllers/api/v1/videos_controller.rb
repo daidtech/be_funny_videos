@@ -13,6 +13,7 @@ class Api::V1::VideosController < Api::V1::BaseController
     @video = Video.new(video_params)
     @video.user = current_user
     if @video.save
+      SendNotificationJob.perform_now(@video.user.id, @video.title, @video.user&.email)
       render json: @video, status: :created
     else
       render json: @video.errors, status: :unprocessable_entity
