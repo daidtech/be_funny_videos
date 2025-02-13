@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    image: funny_video_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app:rw
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    stdin_open: true
+    tty: true
+  db:
+    image: 'postgres:12-alpine'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '15432:5432'
+  redis:
+    image: "redis:7-alpine"
+    ports:
+      - 6379
+    volumes:
+      - ./tmp/redis_data:/var/lib/redis/data
+volumes:
+  postgres:
