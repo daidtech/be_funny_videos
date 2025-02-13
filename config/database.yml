@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: youtube_video_sharing_production
-  username: youtube_video_sharing
-  password: <%= ENV["YOUTUBE_VIDEO_SHARING_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 25 %>
