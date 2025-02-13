@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!, only: [:update]
+  before_action :authenticate_user!, only: [:update, :destroy]
   respond_to :json
 
   # POST /resource
@@ -27,7 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }
     else
       render json: {
-        status: { error: "Không thể tạo người dùng thành công. #{current_user.errors.full_messages.to_sentence}"}
+        status: { error: "#{current_user.errors.full_messages.to_sentence}"}
       }, status: :unprocessable_entity
     end
   end
