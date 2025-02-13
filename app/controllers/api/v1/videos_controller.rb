@@ -5,7 +5,7 @@ class Api::V1::VideosController < Api::V1::BaseController
   def index
     # TODO: Implement pagination
     @videos = Video.all
-    render json: @videos
+    render json: @videos.map{ |video| VideoSerializer.new(video).to_json }
   end
 
   # POST /api/v1/videos
