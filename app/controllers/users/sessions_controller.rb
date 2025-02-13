@@ -10,7 +10,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
-    jwt_payload = current_token
+    jwt_payload = request.headers['Authorization'].split(' ').last
     jti = JWT.decode(
       jwt_payload,
       Rails.application.credentials.devise_jwt_secret_key || ENV['DEVISE_JWT_SECRET_KEY'],

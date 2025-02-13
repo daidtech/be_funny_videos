@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations',
   }
+  get '/users/current_user', to: 'users/current_user#show'
 
   namespace :api do
     namespace :v1 do
