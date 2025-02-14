@@ -23,9 +23,12 @@ RSpec.describe Users::SessionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    before do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+    end
+
     context 'with valid credentials' do
       it 'returns a success response' do
-        @request.env["devise.mapping"] = Devise.mappings[:user]
         post :create, params: { user: { email: user.email, password: user.password } }, format: :json
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['message']).to eq('Logged in successfully.')
@@ -34,7 +37,6 @@ RSpec.describe Users::SessionsController, type: :controller do
 
     context 'with invalid credentials' do
       it 'returns an unauthorized response' do
-        @request.env["devise.mapping"] = Devise.mappings[:user]
         post :create, params: { user: { email: user.email, password: 'wrong_password' } }, format: :json
         expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)['error']).not_to be_nil
