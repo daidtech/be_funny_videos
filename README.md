@@ -1,4 +1,4 @@
-# Video Sharing Platform
+# Video Sharing Platform Backend
 
 ## Demo
 - Visit: [https://demo1.dinhvandai.com/](https://demo1.dinhvandai.com/)
