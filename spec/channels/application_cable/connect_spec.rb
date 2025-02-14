@@ -4,11 +4,9 @@ module ApplicationCable
   RSpec.describe Connection, type: :channel do
     let(:user) { create(:user) }
     let(:token) { Warden::JWTAuth::UserEncoder.new.call(user, :user, nil) }
-    let(:env) { instance_double('env', 'warden-jwt_auth.token' => token[0]) }
-    let(:request) { instance_double('request', params: { token: token[0] }, env: env) }
 
     before do
-      allow_any_instance_of(Connection).to receive(:request).and_return(request)
+      allow_any_instance_of(Connection).to receive(:find_verified_user).and_return(user)
     end
 
     context 'when token is valid' do

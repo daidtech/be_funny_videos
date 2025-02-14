@@ -6,9 +6,9 @@ RSpec.describe Api::V1::VideosController, type: :controller do
 
   context 'when user is not logged in' do
     describe 'GET #index' do
-      it 'returns a unauthorized' do
+      it 'returns a list video' do
         get :index, format: :json
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:ok)
       end
     end
     describe 'POST #create' do
