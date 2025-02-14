@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Users::RegistrationsController, type: :controller do
   let(:user) { build(:user) }
+  let(:active_user) { create(:user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
@@ -23,4 +24,25 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
   end
 
+  describe 'PUT #update' do
+    context 'when user is not admin' do
+      it 'returns a forbidden response' do
+        @request.env["devise.mapping"] = Devise.mappings[:user]
+        sign_in active_user
+        put :update, params: { user: { email: 'text@gmail.com', password: 'password', password_confirmation: 'password' } }, format: :json
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'when user is not admin' do
+      it 'returns a forbidden response' do
+        @request.env["devise.mapping"] = Devise.mappings[:user]
+        sign_in active_user
+        delete :destroy, format: :json
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end
