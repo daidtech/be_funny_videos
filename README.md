@@ -91,7 +91,14 @@ Visit: [http://localhost:8000](http://localhost:8000)
 - **Register**: Fill in your email and password in the header and then click 'Register'.
 - **Login**: Fill in your email and password in the header and then click 'Login'.
 - **Share YouTube video**: Click 'Share a movie' to navigate to the share video page, fill in the video link, title, and description, and click 'Share' to share the video. A notification will pop up for all other users.
-- **View list of videos**: Click the home icon in the header to access the home page and view the list of videos. Reload the page if you don't see the video. Contact the admin or send me a offer to fix the issue :)).
+- **Realtime notification** when a new video is shared. Make sure you log in to view the notification.
+- **View list of videos**: Click the home icon in the header to access the home page and view the list of videos. Reload the page if you don't see the video. Contact the admin or send me an offer to fix the issue.
+
+Due to time constraints and issues when initializing the repository and deployment, I initially planned to add React to Rails but faced many issues with Webpack and version conflicts. After a few hours, I decided to move to React to speed up the coding and setup time. Additionally, Next.js provides good support for deploying to Vercel, which I hope is not a problem.
+
+Regarding testing with RSpec, I am not very familiar with it yet, so all tests are simple for now. However, I believe that after a few weeks, I will become proficient with it.
+
+Thank you for your time.
 
 ## Troubleshooting
 
