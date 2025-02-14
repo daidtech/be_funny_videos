@@ -1,5 +1,6 @@
 class Api::V1::VideosController < Api::V1::BaseController
   before_action :set_video, only: [:destroy]
+  skip_before_action :authenticate_user!, only: [:index]
 
   # GET /api/v1/videos
   def index
